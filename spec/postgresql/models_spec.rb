@@ -15,115 +15,134 @@ describe "Spatially-enabled Models" do
   describe "inserting records" do
     it 'should save Point objects' do
       model = PointModel.new(:extra => 'test', :geom => GeometryFactory.point)
-      #FIXME Not sure about what this expectation means
-      #@connection.should_receive(:select_value).with(Regexp.new(GeometryFactory.point.as_hex_ewkb))
-      #Maybe it should be something related to @connection.visitor (Rails 3.1).
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point
     end
 
     it 'should save LineString objects' do
       model = LineStringModel.new(:extra => 'test', :geom => GeometryFactory.line_string)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.line_string
     end
 
     it 'should save Polygon objects' do
       model = PolygonModel.new(:extra => 'test', :geom => GeometryFactory.polygon)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.polygon
     end
 
     it 'should save MultiPoint objects' do
       model = MultiPointModel.new(:extra => 'test', :geom => GeometryFactory.multi_point)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_point
     end
 
     it 'should save MultiLineString objects' do
       model = MultiLineStringModel.new(:extra => 'test', :geom => GeometryFactory.multi_line_string)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_line_string
     end
 
     it 'should save MultiPolygon objects' do
       model = MultiPolygonModel.new(:extra => 'test', :geom => GeometryFactory.multi_polygon)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_polygon
     end
 
     it 'should save GeometryCollection objects' do
       model = GeometryCollectionModel.new(:extra => 'test', :geom => GeometryFactory.geometry_collection)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.geometry_collection
     end
 
     it 'should save Geometry objects' do
       model = GeometryModel.new(:extra => 'test', :geom => GeometryFactory.point)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point
     end
 
     it 'should save 3D Point (with Z coord) objects' do
       model = PointzModel.new(:extra => 'test', :geom => GeometryFactory.pointz)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.pointz
     end
 
     it 'should save 3D Point (with M coord) objects' do
       model = PointmModel.new(:extra => 'test', :geom => GeometryFactory.pointm)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.pointm
     end
 
     it 'should save 4D Point objects' do
       model = Point4Model.new(:extra => 'test', :geom => GeometryFactory.point4)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point4
     end
 
     it 'should save Point geography objects' do
       model = GeographyPointModel.new(:extra => 'test', :geom => GeometryFactory.point)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point
     end
 
     it 'should save LineString geography objects' do
       model = GeographyLineStringModel.new(:extra => 'test', :geom => GeometryFactory.line_string)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.line_string
     end
 
     it 'should save Polygon geography objects' do
       model = GeographyPolygonModel.new(:extra => 'test', :geom => GeometryFactory.polygon)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.polygon
     end
 
     it 'should save MultiPoint geography objects' do
       model = GeographyMultiPointModel.new(:extra => 'test', :geom => GeometryFactory.multi_point)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_point
     end
 
     it 'should save MultiLineString geography objects' do
       model = GeographyMultiLineStringModel.new(:extra => 'test', :geom => GeometryFactory.multi_line_string)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_line_string
     end
 
     it 'should save MultiPolygon geography objects' do
       model = GeographyMultiPolygonModel.new(:extra => 'test', :geom => GeometryFactory.multi_polygon)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.multi_polygon
     end
 
     it 'should save GeometryCollection geography objects' do
       model = GeographyGeometryCollectionModel.new(:extra => 'test', :geom => GeometryFactory.geometry_collection)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.geometry_collection
     end
 
     it 'should save Geography objects' do
       model = GeographyModel.new(:extra => 'test', :geom => GeometryFactory.point)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point
     end
 
     it 'should save 3D Point (with Z coord) geography objects' do
       model = GeographyPointzModel.new(:extra => 'test', :geom => GeometryFactory.pointz)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.pointz
     end
 
     it 'should save 3D Point (with M coord) geography objects' do
       model = GeographyPointmModel.new(:extra => 'test', :geom => GeometryFactory.pointm)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.pointm
     end
 
     it 'should save 4D Point geography objects' do
       model = GeographyPoint4Model.new(:extra => 'test', :geom => GeometryFactory.point4)
       model.save.should == true
+      model.reload.geom.should == GeometryFactory.point4
     end
   end
 

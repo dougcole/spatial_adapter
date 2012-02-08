@@ -42,12 +42,14 @@ module ActiveRecord::ConnectionAdapters
       end
     end
 
-    alias :original_type_cast :type_cast
-    def type_cast(value, column)
-      if value.kind_of?(GeoRuby::SimpleFeatures::Geometry)
-        value.as_hex_ewkb
-      else
-        original_type_cast(value, column)
+    if instance_methods.include?('type_cast')
+      alias :original_type_cast :type_cast
+      def type_cast(value, column)
+        if value.kind_of?(GeoRuby::SimpleFeatures::Geometry)
+          value.as_hex_ewkb
+        else
+          original_type_cast(value, column)
+        end
       end
     end
 
