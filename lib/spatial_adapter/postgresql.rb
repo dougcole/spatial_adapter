@@ -34,6 +34,15 @@ module ActiveRecord::ConnectionAdapters
       original_native_database_types.merge!(SpatialAdapter.geometry_data_types)
     end
 
+    alias :original_type_cast :type_cast
+    def type_cast(value, column)
+      if value.kind_of?(GeoRuby::SimpleFeatures::Geometry)
+        value.as_hex_ewkb
+      else
+        original_type_cast(value, column)
+      end
+    end
+
     alias :original_quote :quote
     #Redefines the quote method to add behaviour for when a Geometry is encountered
     def quote(value, column = nil)
