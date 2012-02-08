@@ -1,30 +1,16 @@
 = Spatial Adapter for ActiveRecord
 
 This is the Spatial Adapter for ActiveRecord.  It enhances ActiveRecord to
-handle spatial datatypes in the following databases:
-
-- PostgreSQL (using PostGIS)
-- MySQL (using Spatial Extensions)
-
+handle spatial datatypes in Postgresql
 == Dependencies
 
 The following gems are required:
 
 - GeoRuby
 - ActiveRecord (version 2.2.2 and up)
-
-For PostgreSQL:
-
 - PostGIS version 1.4.0 or higher should be installed in your database
 
 == Installation
-
-Choose ONE of the following installation methods.  You shouldn't have to do both.
-
-=== From RubyGems
-
-This is the preferred method of installation, and will pull in the required
-dependencies as well.
 
   gem install spatial_adapter
 
@@ -35,35 +21,6 @@ In a Rails 2.x app, you can add a gem dependency in environment.rb:
 In a Rails 3 app, add a gem dependency to Gemfile:
 
   gem 'spatial_adapter'
-
-=== As a Rails Plugin
-
-In your Rails project, run the following:
-
-script/plugin install git://github.com/fragility/spatial_adapter.git
-
-You need to have Git installed first.
-
-== Configuration
-
-Choose the database type for which you would like to use spatial_adapter, and
-load each with
-
-  require 'spatial_adapter/[database]'
-
-where [database] should be replaced with one of the following:
-
-- postgresql
-- mysql
-- mysql2
-- jdbcmysql
-
-For example to use the PostgreSQL spatial adapter:
-
-  require 'spatial_adapter/postgresql'
-
-In a Rails app, spatial_adapter will automatically load the adapter for the
-database specified in your database.yml configuration.
 
 == Operations
 
@@ -84,27 +41,6 @@ in PostGIS, along with the addition of a spatial index on the column:
 
     add_index :table_points, :geom, :spatial => true
   end
-
-Here is a related statement valid for MySql version <= 5.0.16:
-
-  ActiveRecord::Schema.define do
-    create_table "table_points", ;options=>"ENGINE=MyISAM", :force => true do |t|
-      t.string :data
-      t.point :geom, :null => false
-    end
-
-    add_index :table_points, :geom, :spatial => true
-  end
-
-=== Differences Between Databases
-
-- On all versions of MySQL, the :srid, :with_z, and :with_m options are ignored,
-  since they are not supported.
-
-- On MySQL versions <= 5.0.16, you have to add <tt>:options =>
-  "ENGINE=MyISAM"</tt> to the create_table statement, since only MyISAM tables
-  can have spatial columns.  In addition, only MyISAM tables may have spatial
-  indexes.
 
 === Models
 
@@ -176,35 +112,17 @@ library (http://georuby.rubyforge.org/): This is where the
 
 The Spatial Adapter for ActiveRecord is released under the MIT license.
 
-== Latest Changes
-
-Spatial Adapter has been refactored and is now available as a Ruby gem. The
-dependency on Rails has been removed. Unfortunately, the current version is
-without some of the previous functionality, until a cleaner implementation is
-made.
-
-The previous release is available on the "legacy" branch.
-
-=== Removed Features in 0.2.0
-
-- Compatibility with ActiveRecord/Rails older than version 2.2.2
-- enhancements to find_by_* for spatial columns
-- to_fixture_format extension to the GeoRuby types
-
-These will hopefully be added back in the near future.
-
 == Support
 
 Any questions, enhancement proposals, bug notifications or corrections can be
-made via the project page at http://github.com/fragility/spatial_adapter
+made via the project page at http://github.com/dougcole/spatial_adapter
 
 == Running Tests
 
 The gem depdencencies can be installed with `bundle install`.
 
-You will need to set up an empty database named `spatial_adapter` for each
-adapter you want to test.
+You will need to set up an empty database named `spatial_adapter`
 
 Tests are partitioned by adapter and can be run using separate rake task.
 
-    bundle exec rake spec:[adapter]
+    bundle exec rake spec

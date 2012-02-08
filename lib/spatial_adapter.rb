@@ -36,3 +36,4 @@ end
 require 'spatial_adapter/common'
 require 'spatial_adapter/arel' if defined?(Arel)
 require 'spatial_adapter/railtie' if defined?(Rails::Railtie)
+require 'spatial_adapter/postgresql'
