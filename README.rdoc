@@ -1,3 +1,7 @@
+= **This is a Postgresql Only Fork**
+
+See https://github.com/fragility/spatial_adapter for the original version
+that supports mysql as well.
 = Spatial Adapter for ActiveRecord
 
 This is the Spatial Adapter for ActiveRecord.  It enhances ActiveRecord to
