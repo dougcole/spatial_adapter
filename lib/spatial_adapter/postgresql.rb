@@ -158,8 +158,6 @@ module ActiveRecord::ConnectionAdapters
     # This is a full replacement for the ActiveRecord method and as a result
     # has a higher probability of breaking in future releases.
     def indexes(table_name, name = nil)
-       schemas = schema_search_path.split(/,/).map { |p| quote(p) }.join(',')
-
        # Changed from upstread: link to pg_am to grab the index type (e.g. "gist")
        result = query(<<-SQL, name)
          SELECT distinct i.relname, d.indisunique, d.indkey, t.oid, am.amname
@@ -169,7 +167,7 @@ module ActiveRecord::ConnectionAdapters
            AND d.indisprimary = 'f'
            AND t.oid = d.indrelid
            AND t.relname = '#{table_name}'
-           AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (#{schemas}) )
+           AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
            AND i.relam = am.oid
            AND a.attrelid = t.oid
         ORDER BY i.relname
