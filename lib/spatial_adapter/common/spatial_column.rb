@@ -56,10 +56,10 @@ module SpatialAdapter
     # less simlpified geometric type to be use in migrations
     def geometry_simplified_type(sql_type)
       case sql_type
-      when /^point$/i then :point
-      when /^linestring$/i then :line_string
-      when /^polygon$/i then :polygon
-      when /^geometry$/i then :geometry
+      when /^(st_)?point$/i then :point
+      when /^(st_)?linestring$/i then :line_string
+      when /^(st_)?polygon$/i then :polygon
+      when /^(st_)?geometry$/i then :geometry
       when /multipoint/i then :multi_point
       when /multilinestring/i then :multi_line_string
       when /multipolygon/i then :multi_polygon
